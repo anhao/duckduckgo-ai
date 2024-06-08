@@ -57,4 +57,4 @@ If you want to pass multiple messages, you need to manually pass the `x-vqd-4` p
 The `x-vqd-4` parameter will be returned in the response header after the first dialogue, and subsequent requests need
 to pass the `x-vqd-4` value. A new `x-vqd-4` parameter is required for each new dialogue added.
 
-[x] Automatically pass the **x-vqd-4** by storing the conversation **hash** in **Cloudflare KV**
+- [ ] Automatically pass the **x-vqd-4** by storing the conversation **hash** in **Cloudflare KV**
