@@ -1,0 +1,60 @@
+# DuckDuckGo AI
+
+[中文说明](README.zh.md)
+
+Deploy a free DuckDuckGo AI using Cloudflare Worker, supporting models like **gpt-3.5-turbo-0125**, *
+*claude-3-haiku-20240307**, etc.
+
+DuckDuckGo AI: https://duckduckgo.com/?q=DuckDuckGo&ia=chat
+
+## Deployment
+
+![https://deploy.workers.cloudflare.com/?url=https://github.com/anhao/duckduckgo-ai](https://camo.githubusercontent.com/706bbe2a2cf53a4824ae5e2b599311927e28540dc8a9a57a16f8f5b195572aeb/68747470733a2f2f6465706c6f792e776f726b6572732e636c6f7564666c6172652e636f6d2f627574746f6e)
+
+```shell
+git clone https://github.com/anhao/duckduckgo-ai.git
+cd duckduckgo-ai
+npm install
+npm run deploy
+```
+
+## Supported Models
+
+- gpt-3.5-turbo-0125
+- claude-3-haiku-20240307
+- meta-llama/Llama-3-70b-chat-hf
+- mistralai/Mixtral-8x7B-Instruct-v0.1
+
+## Usage
+
+Replace **worker_url** with your own:
+
+```shell
+curl https://worker_url/v1/chat/completions \
+-H "Authorization: Bearer $YOU_APIKEY" \
+-H "Content-Type: application/json" \
+-d '{
+    "model": "gpt-3.5-turbo-0125",
+    "messages": [{"role": "user", "content": "Hello"}],
+}'
+```
+
+## Authorization Access
+
+In the `wrangler.toml` file, set the value of the `apikey` parameter. If not set, anyone can make requests.
+
+```
+[vars]
+apikey = "" ## Set the apikey value, if not set, anyone can make requests.
+```
+
+## Known Issues
+
+Currently, it does not support continuous dialogue, meaning the `messages` can only be passed once.
+
+If you want to pass multiple messages, you need to manually pass the `x-vqd-4` parameter value to the request header.
+
+The `x-vqd-4` parameter will be returned in the response header after the first dialogue, and subsequent requests need
+to pass the `x-vqd-4` value. A new `x-vqd-4` parameter is required for each new dialogue added.
+
+[x] Automatically pass the **x-vqd-4** by storing the conversation **hash** in **Cloudflare KV**
