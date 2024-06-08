@@ -8,7 +8,8 @@ DuckDuckGo AI: https://duckduckgo.com/?q=DuckDuckGo&ia=chat
 
 ## Deployment
 
-![https://deploy.workers.cloudflare.com/?url=https://github.com/anhao/duckduckgo-ai](https://camo.githubusercontent.com/706bbe2a2cf53a4824ae5e2b599311927e28540dc8a9a57a16f8f5b195572aeb/68747470733a2f2f6465706c6f792e776f726b6572732e636c6f7564666c6172652e636f6d2f627574746f6e)
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/anhao/duckduckgo-ai)
+
 
 ```shell
 git clone https://github.com/anhao/duckduckgo-ai.git
