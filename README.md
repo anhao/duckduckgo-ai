@@ -8,8 +8,6 @@ DuckDuckGo AI: https://duckduckgo.com/?q=DuckDuckGo&ia=chat
 
 ## Deployment
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/anhao/duckduckgo-ai)
-
 
 ```shell
 git clone https://github.com/anhao/duckduckgo-ai.git
