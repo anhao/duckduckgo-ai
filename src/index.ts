@@ -26,7 +26,7 @@ const headers = {
 const statusURL = "https://duckduckgo.com/duckchat/v1/status"
 const chatURL = "https://duckduckgo.com/duckchat/v1/chat"
 const schema = z.object({
-  model: z.string(),
+  model: z.string().default("gpt-4o-mini"),
   messages: z.array(z.object({
     role: z.string(),
     content: z.string()
@@ -35,7 +35,7 @@ const schema = z.object({
 })
 
 const models = [
-  "gpt-3.5-turbo-0125",
+  "gpt-4o-mini",
   "claude-3-haiku-20240307",
   "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
   "mistralai/Mixtral-8x7B-Instruct-v0.1"
@@ -214,12 +214,15 @@ app.post("/v1/chat/completions", validator('json', (value, c) => {
     }
     if (resp.body) {
       const buffer = await resp.text()
-      const parts = buffer.split("\n")
+      const parts = buffer.split("\n\n")
       for (let part of parts) {
         part = part.substring(6)
+        if(part === "[DONE]"){
+          break;
+        }
         try {
           const parseJson = JSON.parse(part)
-          responseContent += parseJson["message"]
+          responseContent += parseJson["message"]??''
         } catch {
           console.log('parse error')
         }
