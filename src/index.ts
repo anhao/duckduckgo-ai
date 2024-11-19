@@ -101,12 +101,9 @@ app.post("/v1/chat/completions", validator('json', (value, c) => {
     "messages": []
   }
   const messages = []
-  for (let message of params.messages) {
-    if (message.role === 'system') {
-      messages.push({"role": "user", "content": message.content})
-    } else {
-      messages.push(message)
-    }
+  if (params.messages.length > 0) {
+    const lastMessage = params.messages[params.messages.length - 1];
+    messages.push(lastMessage);
   }
   // @ts-ignore
   requestParams["messages"] = messages
